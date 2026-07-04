@@ -49,7 +49,7 @@ Download the result as a formatted `.docx` ready to drop into your next client p
 |------------|-------------------------------|----------------------------------|
 | Frontend   | Next.js + React + Tailwind    | Single-page UI with dark mode    |
 | Backend    | FastAPI (Python)              | REST API + file processing       |
-| LLM        | Claude API (Anthropic SDK)    | Structured scope generation      |
+| LLM        | Groq API Key                  | Structured scope generation      |
 | File Parse | python-docx, pypdf            | .docx and .pdf text extraction   |
 | File Export| python-docx                   | Formatted .docx generation       |
 
@@ -61,7 +61,7 @@ Download the result as a formatted `.docx` ready to drop into your next client p
 
 - Python 3.12+
 - Node.js 18+
-- An [Anthropic API key](https://console.anthropic.com/)
+- An Groq API key
 
 ### 1. Clone the repository
 
