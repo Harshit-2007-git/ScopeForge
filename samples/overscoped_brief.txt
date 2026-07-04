@@ -1,0 +1,19 @@
+We want to build a full marketplace platform like Etsy but for local artisans. Features needed:
+- Vendor onboarding with KYC verification and document upload
+- Product listings with AR preview (customers can see products in their room)
+- Real-time chat between buyers and sellers with video call support
+- AI-powered product recommendations based on browsing history
+- Multi-currency support with automatic conversion
+- Built-in shipping integration with FedEx, UPS, DHL, and local couriers
+- Subscription tiers for vendors (free, pro, enterprise)
+- Social features: following vendors, wishlists, sharing to Instagram/TikTok
+- Admin dashboard with real-time analytics, fraud detection, and automated refund processing
+- Mobile apps for iOS and Android (native, not hybrid)
+- Blog/CMS for SEO content
+- Loyalty program with points and rewards
+- Multi-language support (at least 5 languages at launch)
+- Payment processing with Stripe, PayPal, and crypto
+- Automated email marketing campaigns
+- API for third-party integrations
+
+Our team is 2 developers and a designer. We'd like to launch the full platform in 3 months with a budget of $25,000. We're a small startup and this is our first product.
