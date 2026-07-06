@@ -46,12 +46,12 @@ Download the result as a formatted `.docx` ready to drop into your next client p
 ## 🛠️ Tech Stack
 
 | Layer      | Technology                    | Purpose                          |
-|------------|-------------------------------|----------------------------------|
+|------------|--------------------------------|-----------------------------------|
 | Frontend   | Next.js + React + Tailwind    | Editorial spec-document UI       |
 | Backend    | FastAPI (Python)              | REST API + file processing       |
-| LLM        | Groq API (LLaMA 3.3 70B)     | Structured scope generation      |
+| LLM        | Groq API (LLaMA 3.3 70B)      | Structured scope generation      |
 | File Parse | python-docx, pypdf            | .docx and .pdf text extraction   |
-| File Export| python-docx                   | Formatted .docx generation       |
+| File Export| python-docx                    | Formatted .docx generation       |
 
 ---
 
