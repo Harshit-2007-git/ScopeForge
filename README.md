@@ -66,7 +66,7 @@ Download the result as a formatted `.docx` ready to drop into your next client p
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/ScopeForge.git
+git clone https://github.com/Harshit-2007-git/ScopeForge.git
 cd ScopeForge
 ```
 
