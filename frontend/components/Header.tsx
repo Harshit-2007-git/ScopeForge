@@ -1,43 +1,53 @@
+"use client";
+
 export default function Header() {
   return (
-    <header className="relative py-8 px-6 text-center">
-      {/* Decorative glow behind the header */}
-      <div className="absolute inset-0 flex justify-center pointer-events-none">
-        <div className="w-[600px] h-[200px] bg-accent-blue/10 rounded-full blur-[100px] -translate-y-1/2" />
+    <header className="pt-12 pb-10 animate-fade-in">
+      {/* Wordmark */}
+      <div className="mb-8">
+        <h1 className="font-display text-3xl md:text-4xl font-semibold text-ink tracking-tight">
+          ScopeForge
+        </h1>
+        <p className="text-warm-gray text-sm mt-1.5 tracking-wide">
+          Messy notes in. Structured scope out.
+        </p>
       </div>
 
-      <div className="relative z-10">
-        {/* Logo / Icon */}
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="relative">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center shadow-lg shadow-accent-blue/25">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
-              </svg>
-            </div>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold gradient-text tracking-tight">
-            ScopeForge
-          </h1>
+      {/* Redline Before/After Visualization */}
+      <div className="border border-rule rounded-lg p-5 md:p-6 bg-paper-light/60">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="redline-annotation">BEFORE → AFTER</span>
+          <div className="flex-1 h-px bg-rule" />
         </div>
 
-        <p className="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-          Transform messy client notes into{" "}
-          <span className="text-accent-cyan font-medium">
-            structured scope documents
-          </span>
-        </p>
+        <div className="space-y-3 text-sm leading-relaxed">
+          {/* Before: messy text with strikethrough */}
+          <div className="flex gap-3">
+            <span className="redline-annotation mt-0.5 shrink-0">DEL</span>
+            <p className="redline-strike">
+              &ldquo;yeah so we basically need like an app or something, maybe a dashboard? 
+              idk if mobile too, mike said budget isnt a concern but also dont go crazy lol&rdquo;
+            </p>
+          </div>
+
+          {/* After: clean numbered clause */}
+          <div className="flex gap-3">
+            <span className="font-mono text-[10px] text-slate font-semibold mt-0.5 shrink-0 tracking-wider">§1.1</span>
+            <p className="redline-insert text-ink font-medium">
+              Web-based order management dashboard with responsive mobile support. 
+              Budget: to be scoped after requirements clarification.
+            </p>
+          </div>
+
+          {/* Margin annotation */}
+          <div className="flex gap-3 mt-1">
+            <span className="redline-annotation mt-0.5 shrink-0">NOTE</span>
+            <p className="font-mono text-[11px] text-redline leading-relaxed">
+              ⚑ Flagged: &ldquo;budget isnt a concern&rdquo; conflicts with &ldquo;dont go crazy&rdquo; — 
+              listed as open question in §5
+            </p>
+          </div>
+        </div>
       </div>
     </header>
   );

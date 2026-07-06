@@ -27,8 +27,8 @@ Download the result as a formatted `.docx` ready to drop into your next client p
 
 ```
 ┌──────────────┐     ┌──────────────────┐     ┌─────────────┐
-│   Frontend   │────▶│    Backend API    │────▶│  Claude API  │
-│  (Next.js)   │◀────│    (FastAPI)      │◀────│  (Anthropic) │
+│   Frontend   │────▶│    Backend API    │────▶│  Groq API    │
+│  (Next.js)   │◀────│    (FastAPI)      │◀────│  (LLaMA 3.3) │
 │  :3000       │     │    :8000          │     │              │
 └──────────────┘     └──────────────────┘     └─────────────┘
                             │
@@ -39,7 +39,7 @@ Download the result as a formatted `.docx` ready to drop into your next client p
                      └─────────────┘
 ```
 
-**Flow:** Input → Parser → Claude API → Structured JSON → Render / Export
+**Flow:** Input → Parser → Groq API → Structured JSON → Render / Export
 
 ---
 
@@ -47,9 +47,9 @@ Download the result as a formatted `.docx` ready to drop into your next client p
 
 | Layer      | Technology                    | Purpose                          |
 |------------|-------------------------------|----------------------------------|
-| Frontend   | Next.js + React + Tailwind    | Single-page UI with dark mode    |
+| Frontend   | Next.js + React + Tailwind    | Editorial spec-document UI       |
 | Backend    | FastAPI (Python)              | REST API + file processing       |
-| LLM        | Claude API (Anthropic SDK)    | Structured scope generation      |
+| LLM        | Groq API (LLaMA 3.3 70B)     | Structured scope generation      |
 | File Parse | python-docx, pypdf            | .docx and .pdf text extraction   |
 | File Export| python-docx                   | Formatted .docx generation       |
 
@@ -61,7 +61,7 @@ Download the result as a formatted `.docx` ready to drop into your next client p
 
 - Python 3.12+
 - Node.js 18+
-- An [Anthropic API key](https://console.anthropic.com/)
+- A [Groq API key](https://console.groq.com/)
 
 ### 1. Clone the repository
 
@@ -89,7 +89,7 @@ pip install -r requirements.txt
 
 # Configure API key
 copy .env.example .env
-# Edit .env and add your ANTHROPIC_API_KEY
+# Edit .env and add your GROQ_API_KEY
 
 # Start the server
 uvicorn main:app --reload --port 8000
@@ -172,11 +172,11 @@ Export a scope document as a formatted Word file.
 **MVP — Working Local Demo**
 
 - ✅ Paste text or upload .docx/.pdf/.txt
-- ✅ AI-powered structured scope generation
-- ✅ Four-section card view (Scope, Tech Stack, Timeline, Risks)
+- ✅ AI-powered structured scope generation (Groq / LLaMA 3.3)
+- ✅ Editorial spec-document layout with clause numbering
 - ✅ Download as formatted .docx
 - ✅ Error handling and loading states
-- ✅ Premium dark-mode UI
+- ✅ Premium editorial UI with Fraunces + Inter + IBM Plex Mono typography
 
 ---
 

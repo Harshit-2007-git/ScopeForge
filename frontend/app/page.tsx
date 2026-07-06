@@ -32,17 +32,19 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-grid-pattern">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <div className="min-h-screen">
+      <div className="max-w-3xl mx-auto px-6 md:px-8 pb-16">
         <Header />
 
-        <main className="space-y-8">
+        <main>
           {/* Input Section */}
           <InputPanel onGenerate={handleGenerate} isLoading={isLoading} />
 
           {/* Error State */}
           {error && (
-            <ErrorBanner message={error} onDismiss={() => setError(null)} />
+            <div className="mt-6">
+              <ErrorBanner message={error} onDismiss={() => setError(null)} />
+            </div>
           )}
 
           {/* Loading State */}
@@ -53,44 +55,25 @@ export default function Home() {
 
           {/* Empty State */}
           {!scopeData && !isLoading && !error && (
-            <div className="text-center py-16 animate-fade-in">
-              <div className="w-20 h-20 rounded-2xl bg-surface-light/50 border border-border/50 flex items-center justify-center mx-auto mb-5">
-                <svg
-                  className="w-9 h-9 text-text-muted/50"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-text-secondary font-medium text-lg mb-2">
-                No scope document yet
-              </h3>
-              <p className="text-text-muted text-sm max-w-md mx-auto">
-                Paste your client notes or upload a document above, then click{" "}
-                <span className="text-accent-blue font-medium">
-                  &ldquo;Generate Scope&rdquo;
-                </span>{" "}
-                to get started.
+            <div className="mt-12 text-center animate-fade-in">
+              <p className="text-warm-gray text-sm">
+                Your generated scope document will appear here.
               </p>
             </div>
           )}
         </main>
 
         {/* Footer */}
-        <footer className="mt-16 text-center">
-          <div className="h-px bg-gradient-to-r from-transparent via-border/60 to-transparent mb-6" />
-          <p className="text-text-muted text-xs">
-            Built with{" "}
-            <span className="gradient-text font-medium">ScopeForge</span> —
-            Powered by AI
-          </p>
+        <footer className="mt-16">
+          <hr className="hairline mb-5" />
+          <div className="flex items-center justify-between">
+            <span className="font-display text-xs text-warm-gray">
+              ScopeForge
+            </span>
+            <span className="font-mono text-[10px] text-warm-gray tracking-wider">
+              v1.0 — AI-powered scope generation
+            </span>
+          </div>
         </footer>
       </div>
     </div>

@@ -1,5 +1,5 @@
 """
-Claude API integration — sends client notes to the LLM and returns
+Groq API integration — sends client notes to the LLM and returns
 a validated ProjectScope object.
 
 Includes retry logic: if the first response is not valid JSON or fails
@@ -11,10 +11,10 @@ from __future__ import annotations
 import json
 import logging
 
-import anthropic
+from groq import Groq
 from pydantic import ValidationError
 
-from config import ANTHROPIC_API_KEY, ANTHROPIC_MODEL, MAX_TOKENS
+from config import GROQ_API_KEY, GROQ_MODEL, MAX_TOKENS
 from schema import ProjectScope
 
 logger = logging.getLogger(__name__)
@@ -68,13 +68,13 @@ RETRY_SUFFIX = (
 )
 
 
-def _get_client() -> anthropic.Anthropic:
-    if not ANTHROPIC_API_KEY:
+def _get_client() -> Groq:
+    if not GROQ_API_KEY:
         raise RuntimeError(
-            "ANTHROPIC_API_KEY is not set. "
+            "GROQ_API_KEY is not set. "
             "Please add it to your .env file or set it as an environment variable."
         )
-    return anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    return Groq(api_key=GROQ_API_KEY)
 
 
 def _extract_json(text: str) -> dict:
@@ -96,27 +96,28 @@ def _extract_json(text: str) -> dict:
     return json.loads(stripped)
 
 
-def _call_claude(client: anthropic.Anthropic, user_text: str, system: str) -> str:
-    """Make a single API call to Claude and return the text response."""
-    message = client.messages.create(
-        model=ANTHROPIC_MODEL,
+def _call_llm(client: Groq, user_text: str, system: str) -> str:
+    """Make a single API call to Groq and return the text response."""
+    chat_completion = client.chat.completions.create(
+        model=GROQ_MODEL,
         max_tokens=MAX_TOKENS,
-        system=system,
         messages=[
+            {
+                "role": "system",
+                "content": system,
+            },
             {
                 "role": "user",
                 "content": user_text,
-            }
+            },
         ],
+        temperature=0.3,
     )
-    # Extract text from the response content blocks
-    return "".join(
-        block.text for block in message.content if hasattr(block, "text")
-    )
+    return chat_completion.choices[0].message.content or ""
 
 
 async def generate_scope(client_notes: str) -> ProjectScope:
-    """Send client notes to Claude and return a validated ProjectScope.
+    """Send client notes to Groq LLM and return a validated ProjectScope.
 
     On the first attempt the standard system prompt is used.
     If parsing or validation fails, a retry is made with a stricter prompt.
@@ -127,7 +128,7 @@ async def generate_scope(client_notes: str) -> ProjectScope:
     # ── Attempt 1 ──────────────────────────────────────────────────────
     last_error: str = ""
     try:
-        raw = _call_claude(client, client_notes, SYSTEM_PROMPT)
+        raw = _call_llm(client, client_notes, SYSTEM_PROMPT)
         logger.debug("LLM response (attempt 1): %s", raw[:500])
         data = _extract_json(raw)
         return ProjectScope(**data)
@@ -138,7 +139,7 @@ async def generate_scope(client_notes: str) -> ProjectScope:
     # ── Attempt 2 (stricter prompt) ────────────────────────────────────
     try:
         stricter_system = SYSTEM_PROMPT + RETRY_SUFFIX
-        raw = _call_claude(client, client_notes, stricter_system)
+        raw = _call_llm(client, client_notes, stricter_system)
         logger.debug("LLM response (attempt 2): %s", raw[:500])
         data = _extract_json(raw)
         return ProjectScope(**data)
